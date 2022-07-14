@@ -31,7 +31,6 @@ public class MoveCam : MonoBehaviour
 
         if(orientation == null)
         {
-            Debug.Log("orientation is gone");
             playerCamera.enabled = false;
         }
     }

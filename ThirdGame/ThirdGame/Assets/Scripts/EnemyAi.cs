@@ -9,8 +9,6 @@ namespace EG
     {
         public NavMeshAgent agent;
         public Transform player;
-        //EnemyStats hab deriving geändert ohne veränderung
-
         public LayerMask ground, whatIsPlayer;
 
         // Patroling
@@ -20,10 +18,11 @@ namespace EG
 
         //Attacking
         public float timeBetweenAttacks = 2f;
-        bool alreadyAttacked;
+        private bool alreadyAttacked;
         public GameObject projectile;
         public float projectileSpeed;
         public float projectileUp;
+        private DoDamage doDamge;
 
         //States
         public float sightRange, attackRange;
@@ -33,6 +32,10 @@ namespace EG
         {
             player = GameObject.Find("PlayerController02").transform;
             agent = GetComponent<NavMeshAgent>();
+
+            //Collider for Attacking
+            doDamge = GetComponent<DoDamage>();
+            
         }
 
         private void Update()
@@ -111,44 +114,25 @@ namespace EG
 
             if(!alreadyAttacked)
             {
-                // Attack code here
+                // Projectile gets fired with force
                 Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
                 
                 rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
                 rb.AddForce(transform.up * projectileUp, ForceMode.Impulse);
 
+                // Attack function to do damage
+                
+
+                //Reset Attack + Cooldown
                 alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), timeBetweenAttacks);
             }
         }
 
-        /*
-        void FaceTarget()
-        {
-            Vector3 direction = (player.position - transform.position).normalized;
-            Quaternion rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation, Time.deltaTime * 13f);
-        }
-        */
-
         private void ResetAttack()
         {
             alreadyAttacked = false;
         }
-
-        
-        
-        /*
-        public void TakeDamage(int damage)
-        {
-            currentHealth -= damage;
-
-            if(currentHealth <= 0)
-            {
-                Invoke(nameof(DestroyEnemy), 1f);
-            }
-        }
-        */        
 
         private void OnDrawGizmosSelected()
         {

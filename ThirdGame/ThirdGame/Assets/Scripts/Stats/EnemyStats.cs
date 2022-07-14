@@ -43,15 +43,13 @@ namespace EG
             if(currentHealth <= 0) 
             {
                 currentHealth = 0;
-                Debug.Log("Enemy Slayed");
-            
+
+                // Death anim + bug fix and destroy for death
                 animator.SetBool("isDead", true);
                 enemyAi.enabled = false;
                 Object.Destroy(Enemy01, waitTime);
             
             }
-        
-
         }
     }
 }
