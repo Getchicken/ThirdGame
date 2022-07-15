@@ -11,6 +11,8 @@ namespace EG
         private Collider damageCollider;
         public int currentWeaponDamage = 25;
 
+        public int healAmount;
+
         private void Awake()
         {
             damageCollider = GetComponent<Collider>();
@@ -30,6 +32,7 @@ namespace EG
                 if (enemyStats != null)
                 {
                     enemyStats.TakeDamage(currentWeaponDamage);
+                    enemyStats.CallHealing();
                 }
             }
         }

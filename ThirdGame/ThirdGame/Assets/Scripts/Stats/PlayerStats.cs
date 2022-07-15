@@ -15,7 +15,9 @@ namespace EG
         [Header("Detection")]
         Animator animator;
 
+        [Header("Healing")]
         public HealthBar healthbar;
+        
 
         private void Awake()
         {
@@ -68,6 +70,15 @@ namespace EG
                 //Player cant move with no health and gets object gets destroyed
                 playerMovement01.enabled = false;
                 Object.Destroy(PlayerController02, waitTime);
+            }
+        }
+
+        public void Healing(int healAmount)
+        {
+            if(currentHealth <= maxHealth)
+            {
+                currentHealth = currentHealth + healAmount;
+                healthbar.SetCurrentHealth(currentHealth);
             }
         }
     }
