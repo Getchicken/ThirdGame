@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3494158432558875531}
   - component: {fileID: 8671482636876160002}
   - component: {fileID: 925371944738995998}
+  - component: {fileID: -893188094315850592}
   m_Layer: 0
   m_Name: projectile
   m_TagString: Untagged
@@ -127,3 +128,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e51a4459e740514ea91b0f90e3c698e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponDamage: 25
+--- !u!114 &-893188094315850592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146133805993122166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df086b2da9d7c0e449d2185b79599fe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Particle: {fileID: 1146133805993122166}

@@ -11,6 +11,9 @@ namespace EG
         private Collider damageCollider;
         public int currentWeaponDamage = 25;
 
+        // for the score
+        public GameObject scoreText;
+
         public int healAmount;
 
         private void Awake()
@@ -29,12 +32,22 @@ namespace EG
             {
                 EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
 
+                //get access to score
+                Score score = scoreText.GetComponent<Score>();
+
                 if (enemyStats != null)
                 {
                     enemyStats.TakeDamage(currentWeaponDamage);
                     enemyStats.CallHealing();
                 }
+
+                if(enemyStats.currentHealth <= 1f && enemyStats != null)
+                {
+                    //increase score by 2
+                    score.IncreaseScore();
+                }
             }
+        
         }
     }
 }

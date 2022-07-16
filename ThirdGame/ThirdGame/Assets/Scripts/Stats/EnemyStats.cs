@@ -8,7 +8,6 @@ namespace EG
     {
         public GameObject Enemy01;
         Animator animator;
-        //public GameObject ScoreControl;
 
         public EnemyAi enemyAi;
 
@@ -46,11 +45,6 @@ namespace EG
             //animator.Play("DamageToEnemy");
             animator.SetTrigger("Hit01");
 
-            //get access to score
-            //Score score = ScoreControl.GetComponent<Score>();
-            // increase score by 2
-            //score.IncreaseScore();
-    
             // death anim
             if(currentHealth <= 0) 
             {
