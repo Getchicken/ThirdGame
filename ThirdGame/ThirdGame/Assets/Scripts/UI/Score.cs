@@ -12,14 +12,12 @@ public class Score : MonoBehaviour
     void Start()
     {
         currentScore = 0;
-        score.text = " " + currentScore;
+        score.text = "" + currentScore;
     }
 
     public void IncreaseScore()
     {
-        Debug.Log("increased Score");
         currentScore += 2;
-
-        score.text = " " + currentScore;
+        score.text = "" + currentScore;
     }
 }

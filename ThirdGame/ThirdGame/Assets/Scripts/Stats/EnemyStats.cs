@@ -10,6 +10,7 @@ namespace EG
         Animator animator;
 
         public EnemyAi enemyAi;
+        Collider capCollider;
 
         public float waitTime;
 
@@ -24,6 +25,9 @@ namespace EG
             animator = GetComponentInChildren<Animator>();
             enemyAi = GetComponentInParent<EnemyAi>();
             enemyAi.enabled = true;
+
+            // bug fix for infinite score
+            capCollider = GetComponent<Collider>();
         }
     
         void Start()
@@ -52,6 +56,7 @@ namespace EG
 
                 // Death anim + bug fix and destroy for death
                 animator.SetBool("isDead", true);
+                capCollider.enabled = false;
                 enemyAi.enabled = false;
                 Object.Destroy(Enemy01, waitTime);
             }
