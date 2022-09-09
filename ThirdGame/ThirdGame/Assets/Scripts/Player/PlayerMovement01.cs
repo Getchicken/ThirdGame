@@ -38,7 +38,6 @@ public class PlayerMovement01 : MonoBehaviour
     private RaycastHit slopeHit;
     private bool exitingSlope;
 
-
     public Transform orientation;
 
     float horizontalInput;
@@ -48,6 +47,11 @@ public class PlayerMovement01 : MonoBehaviour
     Rigidbody rb;
 
     public MovementState state;
+
+
+    [SerializeField] Stamina stamina;
+    public GameObject StaminaBar;
+    
 
     public enum MovementState
     {
@@ -63,7 +67,8 @@ public class PlayerMovement01 : MonoBehaviour
         rb.freezeRotation = true;
 
         startYScale = transform.localScale.y;
-    
+        
+        stamina = StaminaBar.GetComponent<Stamina>();
     }
 
     private void Update()
@@ -75,6 +80,7 @@ public class PlayerMovement01 : MonoBehaviour
         MyInput();
         StateHandler();
         SpeedControl();
+        
 
         // handle drag
         if(grounded)
@@ -196,7 +202,7 @@ public class PlayerMovement01 : MonoBehaviour
         readyToJump = true;
         exitingSlope = false;
     }
-
+    
     private void StateHandler()
     {
         // mode crouch
@@ -208,10 +214,10 @@ public class PlayerMovement01 : MonoBehaviour
         }
 
         // mode sprint
-        if (grounded && Input.GetKey(sprintKey))
+        if (grounded && Input.GetKey(sprintKey) && stamina.slider.value > 1)
         {
             state = MovementState.sprinting;
-            moveSpeed = sprintSpeed;
+            moveSpeed = sprintSpeed;  
         }
         else if(grounded)
         {
@@ -219,7 +225,7 @@ public class PlayerMovement01 : MonoBehaviour
             moveSpeed = walkSpeed;
         }
         else
-            state = MovementState.air;
+            state = MovementState.air; 
     }
 
     private bool OnSlope()

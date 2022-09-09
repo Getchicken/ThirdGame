@@ -7,14 +7,14 @@ public class CollisionDetection : MonoBehaviour
     public WeaponController01 wc;
     public GameObject Particle1;
 
-    public float currentHealth;
+    private float currentHealth;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Enemy" && wc.IsAttacking && currentHealth >= 1f)
         {
             //Debug.Log(other.name);
-            other.GetComponent<Animator>().SetTrigger("Hit01");
+            other.GetComponent<Animator>().SetTrigger("isHurt");
 
             // blood particles after hit
             //Instantiate(Particle1, transform.position, Quaternion.identity);  

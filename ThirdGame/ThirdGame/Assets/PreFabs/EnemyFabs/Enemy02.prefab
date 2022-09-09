@@ -238,8 +238,8 @@ MonoBehaviour:
   healthLevel: 5
   maxHealth: 200
   currentHealth: 1
-  Enemy01: {fileID: 9108180648171878473}
-  enemyAi: {fileID: 9108180648171878469}
+  Skelett: {fileID: 0}
+  enemyAi: {fileID: 0}
   waitTime: 6
   ninjaModel: {fileID: 0}
   healAmount: 5

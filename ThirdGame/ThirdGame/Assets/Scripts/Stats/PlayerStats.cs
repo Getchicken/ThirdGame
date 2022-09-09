@@ -17,7 +17,13 @@ namespace EG
 
         [Header("Healing")]
         public HealthBar healthbar;
+        private int selfHealAmount;
+        private bool canHeal = true;
         
+
+        [Header("Stamina")]
+        public Stamina stamina;
+        KeyCode sprintKey = KeyCode.LeftShift;
 
         private void Awake()
         {
@@ -30,15 +36,44 @@ namespace EG
     
         void Start()
         {
+            //health bar
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
             healthbar.SetMaxHealth(maxHealth);
+
+            //stamina bar
+            maxStamina = SetMaxStaminaFromStaminaLevel();
+            currentStamina = maxStamina;
+            stamina.SetMaxStamina(maxStamina);
+        }
+
+        void Update()
+        {
+            SprintCheck();
+            // maybe put this in update!!!!!
+            if(Input.GetKeyDown("r"))
+            {
+                HealBottle();
+            }
         }
 
         private int SetMaxHealthFromHealthLevel()
         {
             maxHealth = healthLevel * 10;
             return maxHealth;
+        }
+
+        public void IncreaseMaxHealthLevel()
+        {
+            healthLevel++;
+            maxHealth = healthLevel * 10;
+            currentHealth = maxHealth;
+        }
+
+        private int SetMaxStaminaFromStaminaLevel()
+        {
+            maxStamina = staminaLevel * 10;
+            return maxStamina;
         }
 
         public void TakeDamage(int damage)
@@ -79,6 +114,45 @@ namespace EG
             {
                 currentHealth = currentHealth + healAmount;
                 healthbar.SetCurrentHealth(currentHealth);
+            }
+        }
+
+        private void HealBottle()
+        {
+            selfHealAmount = maxHealth / 5;
+
+            if(currentHealth <= maxHealth && canHeal == true)
+            {
+                currentHealth = currentHealth + selfHealAmount;
+                healthbar.SetCurrentHealth(currentHealth);
+
+                canHeal = false;
+                StartCoroutine(ResetHealBool());
+            }
+            
+        }
+
+        IEnumerator ResetHealBool()
+        {
+            yield return new WaitForSeconds(12);
+            canHeal = true;
+        }
+
+        private void SprintCheck()
+        {
+            //if shift is pressed deduct stamina
+            
+            if(Input.GetKey(sprintKey))
+            {
+                //Debug.Log("check if descrease");
+                stamina.DecreaseStamina();
+                //stamina.SetCurrentStamina(currentStamina);
+            }
+            else 
+            {
+                //Debug.Log("check if Increase");
+                stamina.IncreaseStamina();
+                //stamina.SetCurrentStamina(currentStamina);
             }
         }
     }

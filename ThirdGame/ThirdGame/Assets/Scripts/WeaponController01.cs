@@ -7,6 +7,7 @@ public class WeaponController01 : MonoBehaviour
     public GameObject Sword;
     public bool CanAttack = true;
     public float AttackCooldown = 2f;
+    public float damageWindow = 0.3f;
 
     public bool IsAttacking = false;
 
@@ -26,7 +27,7 @@ public class WeaponController01 : MonoBehaviour
     public void SwordAttack()
     {
         //sword attack
-        IsAttacking = true;
+        IsAttacking = true; 
         CanAttack = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("Attack");
@@ -36,18 +37,19 @@ public class WeaponController01 : MonoBehaviour
         ac.PlayOneShot(swordAttackSound);
 
         StartCoroutine(ResetAttackCooldown());
+        StartCoroutine(ResetAttackBool());
     }
 
     IEnumerator ResetAttackCooldown()
     {
-        StartCoroutine(ResetAttackBool());
+        //StartCoroutine(ResetAttackBool());
         yield return new WaitForSeconds(AttackCooldown);
-        CanAttack = true;
+        CanAttack = true; 
     }
 
     IEnumerator ResetAttackBool()
     {
-        yield return new WaitForSeconds(AttackCooldown);
+        yield return new WaitForSeconds(damageWindow);
         IsAttacking = false;
     }
 }

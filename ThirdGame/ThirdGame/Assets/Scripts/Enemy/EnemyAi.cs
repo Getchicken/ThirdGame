@@ -10,6 +10,7 @@ namespace EG
         public NavMeshAgent agent;
         public Transform player;
         public LayerMask ground, whatIsPlayer;
+        Animator animator;
 
         // Patroling
         public Vector3 walkPoint;
@@ -23,6 +24,7 @@ namespace EG
         public float projectileSpeed;
         public float projectileUp;
         private DoDamage doDamge;
+        public bool skelAttacking;
 
         //States
         public float sightRange, attackRange;
@@ -35,6 +37,9 @@ namespace EG
 
             //Collider for Attacking
             doDamge = GetComponent<DoDamage>();
+
+            //for anims
+            animator = GetComponentInChildren<Animator>();
             
         }
 
@@ -72,14 +77,16 @@ namespace EG
             if(walkPointSet)
             {
                 agent.SetDestination(walkPoint);
+                animator.SetBool("isMoving", true);
             }
             
             Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
             // walkPoint reached
-            if(distanceToWalkPoint.magnitude < 2f)
+            if(distanceToWalkPoint.magnitude < 1f)
             {
                 walkPointSet = false;
+                animator.SetBool("isMoving", true);
             }
         }
 
@@ -101,27 +108,32 @@ namespace EG
         private void ChasePlayer()
         {
             agent.SetDestination(player.position);
+            animator.SetBool("isMoving", true); 
+            FaceTowards();
         }
 
         private void AttackPlayer()
         {
-            //FaceTarget();
-            //alternitive face target transform.LookAt(player);
-            transform.LookAt(player);
+
+            animator.SetBool("isMoving", false);
+            
+            FaceTowards();
 
             // make enemy stop moving
             agent.SetDestination(transform.position);
 
             if(!alreadyAttacked)
             {
+                // Attack function to do damage
+                //skelAttacking = true;
+
+
+                animator.SetTrigger("Attack");
                 // Projectile gets fired with force
                 Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
                 
                 rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
                 rb.AddForce(transform.up * projectileUp, ForceMode.Impulse);
-
-                // Attack function to do damage
-                
 
                 //Reset Attack + Cooldown
                 alreadyAttacked = true;
@@ -132,6 +144,8 @@ namespace EG
         private void ResetAttack()
         {
             alreadyAttacked = false;
+            //skelAttacking = true;
+            animator.SetBool("isMoving", false);
         }
 
         private void OnDrawGizmosSelected()
@@ -140,6 +154,14 @@ namespace EG
             Gizmos.DrawWireSphere(transform.position, attackRange);
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, sightRange);
+        }
+
+        private void FaceTowards()
+        {
+         Vector3 lookVector = player.transform.position - transform.position;
+         lookVector.y = transform.position.y;
+         Quaternion rot = Quaternion.LookRotation(lookVector);
+         transform.rotation = Quaternion.Slerp(transform.rotation, rot, 1);
         }
     }
 }

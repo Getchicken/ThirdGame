@@ -7,14 +7,22 @@ namespace EG
     public class DoDamage : MonoBehaviour
     {
         
-        private Collider doDamageCollider;
+        Collider doDamageCollider;
         public int currentWeaponDamage = 25;
+        EnemyAi enemyAi;
+        //public GameObject NinjaModel;
+        //Collider playerCollider;
+
+        
 
         private void Awake()
         {
+            enemyAi = GetComponent<EnemyAi>();
             doDamageCollider = GetComponent<Collider>();
             doDamageCollider.gameObject.SetActive(true);
             doDamageCollider.isTrigger = true;
+
+            //playerCollider = NinjaModel.GetComponent<Collider>();
         }
 
 
@@ -22,7 +30,7 @@ namespace EG
         {
             // player gets damaged after collision from anything/anyone ____ This part only on enemys to damage players
             
-            if(collision.tag == "Player")
+            if(collision.tag == "Player" ) 
             {
                 PlayerStats playerStats = collision.GetComponent<PlayerStats>();
 
@@ -32,6 +40,24 @@ namespace EG
                 }
             }
         }
+
+        /*
+        private void OnTriggerEnter(Collider playerCollider)
+        {
+            // player gets damaged after collision from anything/anyone ____ This part only on enemys to damage players
+            
+            if(NinjaModel.tag == "Player" && enemyAi.skelAttacking) 
+            {
+                PlayerStats playerStats = NinjaModel.GetComponent<PlayerStats>();
+
+                if(playerStats != null)
+                {
+                    playerStats.TakeDamage(currentWeaponDamage);
+                    Debug.Log("damage taken");
+                }
+            }
+        }
+        */
     }
 }
 

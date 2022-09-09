@@ -11,9 +11,9 @@ namespace EG
         public int maxHealth;
         public int currentHealth;
 
-        private void OnDisable()
-        {
-            
-        }
+        [Header("Stamina")]
+        public int staminaLevel = 10;
+        public int maxStamina;
+        public int currentStamina;
     }
 }
