@@ -17,8 +17,8 @@ public class CollisionDetection : MonoBehaviour
             other.GetComponent<Animator>().SetTrigger("isHurt");
 
             // blood particles after hit
-            //Instantiate(Particle1, transform.position, Quaternion.identity);  
-            Rigidbody rb = Instantiate(Particle1, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            Instantiate(Particle1, transform.position, Quaternion.identity);  
+            //Rigidbody rb = Instantiate(Particle1, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         }
         // new Vector3(other.transform.position.x, transform.position.y, transform.position.z),other.transform.rotation;
     }

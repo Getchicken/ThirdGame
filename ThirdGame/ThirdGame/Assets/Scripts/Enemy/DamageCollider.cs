@@ -7,7 +7,7 @@ namespace EG
 {
     public class DamageCollider : MonoBehaviour
     {
-        public WeaponController01 wc;
+        public WeaponController01 wc; // muss geändert werden weaponcontroller
         private Collider damageCollider;
         public int currentWeaponDamage = 25;
 

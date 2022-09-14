@@ -27,10 +27,13 @@ public class WeaponController01 : MonoBehaviour
     public void SwordAttack()
     {
         //sword attack
-        IsAttacking = true; 
-        CanAttack = false;
+        IsAttacking = true;
         Animator anim = Sword.GetComponent<Animator>();
-        anim.SetTrigger("Attack");
+        if(CanAttack == true)
+            anim.SetTrigger("Attack");
+        
+        CanAttack = false;
+        
 
         // sword swing sound
         AudioSource ac = GetComponent<AudioSource>();
