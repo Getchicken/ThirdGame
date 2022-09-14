@@ -20,7 +20,7 @@ public class WaveSpawner : MonoBehaviour
 
     public Transform[] spawnPoints;
 
-    public float timeBetweenWaves = 4f;
+    public float timeBetweenWaves = 1.5f;
     private float waveCountdown;
 
     private float searchCountdown = 1f;
@@ -67,7 +67,6 @@ public class WaveSpawner : MonoBehaviour
 
     void WaveCompleted()
     {
-        Debug.Log("wave completed");
 
         state = SpawnState.Counting;
         waveCountdown = timeBetweenWaves;

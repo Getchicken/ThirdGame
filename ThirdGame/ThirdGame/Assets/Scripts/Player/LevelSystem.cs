@@ -76,7 +76,7 @@ public class LevelSystem : MonoBehaviour
         currentXp = Mathf.RoundToInt(currentXp - requiredXp);
         // boost playerStats
         NinjaModel.GetComponent<PlayerStats>().IncreaseMaxHealthLevel();
-        Skeloton.GetComponent<EnemyStats>().IncreaseMaxHealthLevel();
+        //Skeloton.GetComponent<EnemyStats>().IncreaseMaxHealthLevel(); // causes bug due to destoying the GameO; how to increase All ENEMYS STATS?
         Sword.GetComponent<DamageCollider>().IncreaseDamage();
         requiredXp = CalculateRequiredXp();
         levelText.text = "Level " + level;

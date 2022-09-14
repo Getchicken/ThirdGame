@@ -4,16 +4,34 @@ using UnityEngine;
 
 public class AnimController : MonoBehaviour
 {
-    /*
-    public GameObject WeaponHolder;
-  
-    public void AnimationHasFinished()
+    public GameObject Trails;
+    public GameObject Glow;
+    public GameObject Particle;
+    public GameObject Hand;
+
+    public void ShowTrailsOnAttack()
     {
-        WeaponHolder.GetComponent<WeaponController>().readyToAttack();
+        Trails.SetActive(true);
+        Glow.SetActive(true);
+        Particle.SetActive(true);
+        IsAttacking();
     }
-    public void AnimationTwoHasFinished()
+
+    public void HideTrailsOnAnimEnd()
     {
-        WeaponHolder.GetComponent<WeaponController>().readyToCombo();
+        Trails.SetActive(false);
+        Glow.SetActive(false);
+        Particle.SetActive(false);
+        IsNotAttacking();
     }
-    */
+
+    public void IsAttacking()
+    {
+        Hand.GetComponent<WeaponController>().IsAttacking = true;
+    }
+
+    public void IsNotAttacking()
+    {
+        Hand.GetComponent<WeaponController>().IsAttacking = false;
+    }
 }

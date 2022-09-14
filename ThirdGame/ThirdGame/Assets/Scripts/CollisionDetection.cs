@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CollisionDetection : MonoBehaviour
 {
-    public WeaponController01 wc;
-    public GameObject Particle1;
+    public WeaponController wc;
+    public GameObject Particle;
 
     private float currentHealth;
 
@@ -17,8 +17,8 @@ public class CollisionDetection : MonoBehaviour
             other.GetComponent<Animator>().SetTrigger("isHurt");
 
             // blood particles after hit
-            Instantiate(Particle1, transform.position, Quaternion.identity);  
-            //Rigidbody rb = Instantiate(Particle1, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            Instantiate(Particle, transform.position, Quaternion.identity);  
+            //Rigidbody rb = Instantiate(Particle, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         }
         // new Vector3(other.transform.position.x, transform.position.y, transform.position.z),other.transform.rotation;
     }
